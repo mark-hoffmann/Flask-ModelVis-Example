@@ -1,0 +1,94 @@
+//
+//   Created 6-13-16 by Stuart Casarotto
+//
+//   This document will hold all NavBar code.
+//
+//
+//   To Do:
+//
+//
+//
+//
+//********************//
+//*	   VARIABLES     *//
+//********************//
+$midBreak: 900px;
+$smallHomeBreak: 760px;
+
+
+$navButtonAlpha: 		0.3;
+$navButtonGreen: 		rgba(74,222,194,$navButtonAlpha);
+$navButtonBlue: 		rgba(0,124,195,$navButtonAlpha);
+
+$pagePadding: 40px;
+
+//*************//
+//*	   CODE   *//
+//*************//
+.navbar{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;	
+	width: 100%;
+	z-index: 100;
+	background-color: white;
+	font-family: $font-stack;
+	height: 80px;
+	padding: 0px $pagePadding;
+	text-align: center;
+	
+	//Responsive
+	@media screen and (max-width: $midBreak) {
+		height: 80px;
+	}
+	.container{
+		height: 100%;
+		border-bottom: solid 1px #efefef;
+		
+		//NEST
+		ul{
+			position: relative;
+			list-style: none;
+			margin: 0;
+			display: inline-block;
+
+			//NEST
+			li{
+			    display: inline-block;
+			    
+				//NEST
+				.nav-link{
+				    color: black;
+				    text-decoration: none;
+				    font-size: 22px;
+		    		line-height: 80px;
+				    margin: 0px 15px;
+				    display: block;
+				    opacity: 0.6;
+				    
+					@include transition-property(opacity);
+					@include transition-duration(0.25s);
+					@include transition-timing-function(ease-out);
+				    
+			    	//Responsive
+					@media screen and (max-width: $midBreak) {
+				   		line-height: 80px;
+				    	margin: 0px 6px;
+					}
+				    				    
+					&:hover{
+					    opacity: 1;
+					}
+				}
+				
+			}
+		}
+	}
+   
+	//Responsive
+	@media screen and (max-width: $smallHomeBreak) {
+		//Display as sandwhich menu
+		display: none;
+	}
+}

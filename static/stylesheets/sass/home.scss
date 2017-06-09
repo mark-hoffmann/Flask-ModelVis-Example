@@ -1,0 +1,414 @@
+//Modules
+@import "main";
+
+
+#mainContent{
+}
+
+.section{
+	position: relative;
+	width: 90%;
+	margin: 0px auto;
+	padding: 100px 0px;
+	font-size: 0px;
+	max-width: 1000px;
+	border-bottom: 1px solid #e4e4e4;
+	
+	//NEST
+	h1{
+		position: relative;
+		width: 100%;
+		text-align: left;
+		font-weight: 500;
+		font-size: 52px;
+	}
+	h2{
+		position: relative;
+		text-align: left;
+		margin-bottom: 60px;
+		font-size: 30px;
+		
+		//NEST
+		&:after{
+			content: "";
+			position: absolute;
+			width: 200px;
+			height: 2px;
+			left: 0px;
+			bottom: -10px;
+			background: $primaryGray;
+		}
+	}
+	p{
+		position: relative;
+		margin: 0px auto 10px;
+		line-height: 1.25;
+		width: 100%;
+		font-size: 20px;
+		text-align: left;
+		font-weight: 100;
+	}
+	.chart{
+		margin: 50px 0px;
+		display: block;
+	}
+	.column{
+		position: relative;
+		display: inline-block;
+		width: 50%;
+		vertical-align: middle;		
+	}
+	blockquote{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	ul{
+		position: relative;
+		display: inline-block;
+		padding: 20px 50px;
+		text-align: left;
+		
+		//NEST
+		li{
+			font-size: 24px;
+			font-weight: 100;
+		}	
+	}
+}
+
+.section#section1{
+	text-align: center;
+	margin-top: 40px;
+}
+
+.section#section2{
+	text-align: center;
+	
+	ul{
+		display: block;
+		padding: 0px 0px 0px 20px;
+		margin-bottom: 20px;	
+		
+		//NEST
+		li{
+			font-size: 18px;	
+		}
+	}
+	//Titles on charts	
+	.title{
+		font-size: 30px;
+	}
+	.pieChartLeft{
+		width: 33.33%;
+	}
+	
+	.barChartRight{
+		width: 66.66%;
+	}
+	
+	/*
+	.secondRowCharts{
+		position: relative;
+		display: inline-block;
+		
+		.pieChartLeft{
+			width: 33%;
+		}
+		
+		.barChartRight{
+			width: 66%
+		}
+	}
+	*/
+
+}
+
+.section#section3{
+	
+	#modelOutput{
+		font-size: 24px;
+	}
+	.column{
+		padding: 0px 10px;
+	}
+	h3{
+		font-size: 28px;
+		text-align: center;
+		margin-bottom: 15px;
+	}
+	h5{
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	#modelButton{
+		margin-top: 25px;
+	}
+	input[type=submit]{
+		width: 100%
+	}
+}
+
+
+
+
+///////////
+
+
+input, textarea, select, button{
+	width: 100%;
+    font-size: 18px;
+    line-height: 1.5;
+    -webkit-appearance: none;
+    background: white;
+    border-radius: 0;
+    border: 1px solid #959f9f;
+    padding: 2px 5px;
+
+    @include transition(0.3s border-color, 0.3s box-shadow);
+    
+	&:hover {
+		border: 1px solid #270188;
+		box-shadow: 0 0 0 1px #270188 inset;
+	}
+	&:disabled{
+		cursor: default;
+		color: gray;
+		border: 1px solid lightgray;
+		box-shadow: none;
+		
+		&:hover {
+			border: 1px solid lightgray;
+			box-shadow: none;
+			background-color: transparent;
+			color: #323232; 
+		}		
+	}
+	
+}
+
+input[type=submit], button{
+	cursor: pointer;
+	
+	@include transition(0.3s border-color, 0.3s box-shadow, 0.3s background-color, 0.3s color);
+	
+	&:hover {
+		border: 1px solid #270188;
+		box-shadow: 0 0 0 1px #270188 inset;
+		background-color: #270188;
+		color: white; 
+	}
+}
+input[type=checkbox]{
+	background: url(/static/img/portal/checkboxradio.png) no-repeat;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+
+	&:hover {
+	    background-position: -24px 0;
+	}
+	&:checked {
+	    background-position: -48px 0;
+	}	
+}
+input[type=radio]{
+	-webkit-appearance: radio;
+    width: auto;
+    background: transparent;
+    box-shadow: none;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+select{
+	-webkit-appearance: menulist;
+	cursor: pointer;
+}
+
+.form-row{
+	position: relative;
+	width: 100%;
+	margin-bottom: 10px;
+	display: inline-block;
+	
+	&.compact{ width: auto; }
+	&.half{ width: 50%}
+	&.third{ width: 33.333% }
+	&.two-third{ width: 66.666% }
+	&.left{ padding-right: 10px; }
+	&.right{ padding-left: 10px; }
+	
+	
+	//NEST
+	label{
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+}
+
+//***************//
+//TOGGLE CHECKBOX//
+//***************//
+//TODO: Create text and non-text toggles
+input[type=checkbox].toggle-checkbox{
+	display: none;
+
+	&+ label.toggle-button{
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 44px;
+		font-size: 18px;
+		cursor: pointer;
+		user-select: none;
+		outline: 0;
+	
+		overflow: hidden;
+		backface-visibility: hidden;
+		transition: all .2s ease;
+		background: #959f9f;
+
+		&:after, &:before {
+			position: absolute;
+			display: inline-block;
+			content: "";
+			width: 100%;
+			height: 100%;
+			transition: all .2s ease;
+			text-align: center;
+			line-height: 44px;
+			font-weight: 500;
+			color: white;
+		}    
+		&:after {
+			left: 100%;
+			content: attr(data-tg-on);
+		}
+   
+		&:before {
+			left: 0;
+			content: attr(data-tg-off);
+		}			
+	}
+	&:checked + .toggle-button {
+	    background: #270188;
+	    
+	    &:before {
+	      left: -100%;
+	    }
+	
+	    &:after {
+	      left: 0;
+	    }
+	}
+}
+
+.section#section4{
+	text-align: center;
+	
+}
+
+
+//********************//
+//SEGMENTED CONTROLLER//
+//********************//
+
+.segmented-control{
+	position: relative;
+	width: 100%;
+	font-size: 0px;
+	margin-bottom: 10px;
+	
+	//NEST
+	input[type="radio"]{ display: none; }
+	input[type="radio"]:checked + label { 
+	    background-color: #270188;
+		color: white;
+		border: 1px solid #270188;
+	}
+	
+	label.segment{
+		position: relative;
+		display: inline-block;
+		border: 1px solid #959f9f;
+		cursor: pointer;
+		padding: 10px 20px;
+		margin: 0px !important;
+		background: white;
+		@include transition(0.3s border-color, 0.3s box-shadow, 0.3s background-color);
+    
+		&:hover {
+			border: 1px solid #270188;
+			box-shadow: 0 0 0 1px #270188 inset;
+		}
+	}
+}
+
+
+.sliders-container {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.slider {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    font-size: 14px;
+    text-align: left;
+    
+    //NEST
+    h4{
+	    font-size: 28px;
+    }
+}
+
+.slider.modeling {
+    padding-right: 30px;
+}
+
+.slider.software {
+    padding-left: 30px;
+}
+.suncharts-container {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.suncharts-container nvd3 {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    text-align: left;
+    font-size: 16px;
+    
+    &.services{
+	    padding-right: 30px;
+	    
+    }
+    &.maintance{
+	    padding-left: 30px;
+    }
+ 
+    //NEST
+    .title{
+	    position: relative;
+	    margin-bottom: 10px;
+	    font-size: 32px;
+    }
+    .subtitle{
+    	position: relative;
+    	font-size: 14px;
+	    
+    }
+}

@@ -1,0 +1,200 @@
+{% extends "layout_main.html" %}
+
+{% block head_title %}LMS Example - Data Visualization{% endblock %}
+
+{% block head_description %}WEBSITE DESCRIPTION GOES HERE{% endblock %}
+
+{% block head_css %}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='stylesheets/home.css') }}">
+{% endblock %}
+
+{% block js %}
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script src="{{ url_for('static',filename='reusableCharts/js/barChart.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='reusableCharts/css/barChart.css') }}">
+
+
+
+
+	<script src="{{ url_for('static',filename='js/_nav.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/_footer.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/home.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/buffalo_index.js') }}"></script>
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bower_components/nvd3/build/nv.d3.min.css') }}">
+<script type="text/javascript" src="{{ url_for('static',filename='bower_components/nvd3/build/nv.d3.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='bower_components/angular-nvd3/dist/angular-nvd3.js') }}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bower_components/angularjs-slider/dist/rzslider.min.css') }}">
+<script src="{{ url_for('static',filename='bower_components/angularjs-slider/dist/rzslider.min.js') }}"></script>
+
+
+{% endblock %}
+
+{% block nav %} {% include "_nav.html" %} {% endblock %}
+
+{% block content %}
+	{% raw %}
+	<div ng-app="app" ng-controller="AppCtrl as app" id="mainContent">
+		<!--Background-->
+		<div class="section" id="section1" name="background">
+			<h1>Background</h1>
+			<h2>Analytics Backed Software Prototype</h2>
+			<p>This is a prototyped idea exploration for a Labor Management System (LMS) built in a couple of days for the purpose of exploring the benefits of building software around predictive analytics.</p>
+			<p>There are several LMS systems out in the market right now, but they are all either built on out-dated software or are simply a visual of data placed into the system. Many of them are also not focused on data, but rather just a means to organize decisions. Becoming data driven provides not only a way to see patterns of business in the past, but also provide insight into how to optimize resources and profit into the future. This is an example of a single facet of what a predictive analytics backed software service could give potential to. Some of the key value props for a potential analytics backed software include:
+			</p>
+			<ul>
+				<li>Real time visuals of data</li>
+				<li>Accurate Forecasts</li>
+				<li>Optimized Labor Planning</li>
+			</ul>
+			<ul>
+				<li>Pro active scheduling</li>
+				<li>Easy reporting</li>
+				<li>Everything quantified</li>
+			</ul>
+		</div>
+		<!--Visualization-->
+		<div class="section" id="section2" name="dashboards">
+			<h1>Dashboards</h1>
+			<h2>Data Visualization Component</h2>
+			<nvd3 options="options2" data="data2" class="chart"></nvd3>
+			<div class="secondRowCharts">
+				<div class="pieChartLeft column chart">
+					<nvd3 options="pieOptions" data="pieData"></nvd3>
+				</div>
+				<div class="barChartRight column chart">
+					<nvd3 options="barOptions" data="barChartData"></nvd3>
+					<div class="radio-container">
+						<div class="segmented-control">
+							<fieldset id="barChartType">
+							
+								<input type="radio" name="gamesPlayed" value="gamesPlayed" id="gamesPlayed" ng-model="barChartType" >
+								<label for="gamesPlayed" class="segment">Games Played</label>
+							
+								<input type="radio" name="percent" value="percent" id="percent" ng-model="barChartType" >
+								<label for="percent" class="segment">Percent</label>
+								
+							</fieldset>
+						</div>
+					</div>
+					<!--
+					<button type="button" class="column half" ng-click="barPercent()">Percentage</button>
+					<button type="button" class="column half" ng-click="barGamesPlayed()">Games Played</button>
+					-->
+				</div>
+			</div>
+			<!--<bar-chart height="options.height" data="data" hovered="hovered(args)"></bar-chart>-->		
+			<p>Based on the parameter estimates of the model, there are a few things to consider when looking at the attendance. The attendance drops on average <b>947</b> people each week throughout the season subject to the following conditions:</p>
+			<blockquote>
+				<p>The Bills momentum in a season significantly effects attendance patterns.</p>
+				<ul>
+					<li>If the Bills have between <b>3-5 wins</b>, the following games will see an increase of about <b>2,380</b> people compared to earlier in the season.</li>
+					<li>If the Bills have <b>over 5 wins</b>, that number instead becomes <b>7,930</b> people.</li>
+				</ul>
+				<p>The Bills performance in the prior year significantly impacts ticket sales.</p>
+				<ul>
+					<li>If the Bills <b>win 30-50%</b> of the previous years games, they will see an attendance increase of about <b>4,030</b> at following games as compared to a season with <b>under 30% wins.</b></li>
+					<li>Likewise, if the Bills <b>win over 50%</b> the attendance will increase <b>6,195</b> compared to a losing season.</li>
+				</ul>
+			</blockquote>
+		</div>
+		<!--MODEL-->		
+		<div class="section" id="section3" name="predictive">
+			<h1>Predictive</h1>
+			<h2>Predictive Modeling Backed Insights</h2>
+			<form class="column" name="predictionForm" id="prediction" ng-submit="computeModel()">
+				<h3>Expected Attendances Variables</h3>
+				<div class="form-row">
+					<label for="weekNumber">Week Number</label>
+					<input type="number" name="weekNumber" ng-model="weekNumber"  id="weekNumber" min="0" max="17" placeholder="Week Number" required>
+				</div>
+				<div class="form-row">
+					<div class="segmented-control">	
+					<label>Previous Year Winning Percentage</label>
+						<fieldset id="win">
+							<input type="radio" name="win" value="lowPrevWin" id="lowPrevWin" ng-model="win" >
+							<label for="lowPrevWin" class="segment"> % &lt 0.3</label>
+							
+							<input type="radio" name="win" value="medPrevWin" id="medPrevWin" ng-model="win" >
+							<label for="medPrevWin" class="segment">0.3 &#8804 % &lt 0.5</label>
+							
+							<input type="radio" name="win" value="highPrevWin" id="highPrevWin" ng-model="win">
+							<label for="highPrevWin" class="segment">% &#8805 0.5</label>
+						</fieldset>
+					</div>
+				</div>
+				<div class="form-row">
+					<label>How Many Games Have the Bills Won This Season?</label>
+					<div class="segmented-control">
+						<fieldset id="games">
+							<input type="radio" name="lowGames" value="lowGames" id="lowGames" ng-model="games" >
+							<label for="lowGames" class="segment">&lt 3 games</label>
+							
+							<input type="radio" name="medGames" value="medGames" id="medGames" ng-model="games" >
+							<label for="medGames" class="segment">3 &#8804 games &lt 5 </label>
+							
+							<input type="radio" name="highGames" value="highGames" id="highGames" ng-model="games">
+							<label for="highGames" class="segment"> games &#8805 5</label>
+						</fieldset>
+					</div>
+				</div>
+				<h3>Labor Ratio (Ex. 1 to 80)</h3>
+				<div class="form-row half left">
+					<label for="staffRatio">Staff</label>
+					<input type="number" name="staffRatio" ng-model="staffRatio"  id="staffRatio" min="0" placeholder="Number of Staff" required>
+				</div>
+				<div class="form-row half right">	
+					<label for="attendanceRatio">Attendance</label>
+					<input type="number" name="attendanceRatio" ng-model="attendanceRatio"  id="attendanceRatio" min="0" placeholder="Number of Attendees" required>
+				</div>
+				<div class="form-row">
+					<input type="submit" value="Compute Values">
+				</div>
+			</form>
+			<div class="column" id="modelOutput">
+				<h5>Estimated Game Attendees: {{pointEst}}</h5>
+				<nvd3 options="modelOutputOptions" data="modelOutputData"></nvd3>
+			</div>
+		</div>
+		
+		<div class="section" id="section4" name="deployment">
+			<h1>Development & Deployment</h1>
+			<h2>Modeling and Software</h2>
+			<div class="sliders-container">
+				<div class="slider modeling">
+					<h4>Modeling Hours</h4>
+					<rzslider rz-slider-model="modelBuildingHours" rz-slider-options="modelBuildingOptions"></rzslider>
+				</div>
+				<div class="slider software">
+					<h4>Software Development Hours</h4>
+				    <rzslider rz-slider-model="softwareBuildingHours" rz-slider-options="softwareBuildingOptions"></rzslider>
+					<div class="form-row">
+						<div class="segmented-control">	
+							<label>Type of Software</label>
+							<fieldset id="software">
+								<input type="radio" name="software" value="less" id="less" ng-model="software" >
+								<label for="less" class="segment">Simple Model Interface</label>
+								<input type="radio" name="software" value="more" id="more" ng-model="software" >
+								<label for="more" class="segment">Full Custom Software Solution</label>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<div class="suncharts-container">
+				<nvd3 options="sunburstOptions" data="sunburstData" class="services"></nvd3>
+				<nvd3 options="sunburstSmallOptions" data="sunburstSmallData" class="maintance"></nvd3>
+			</div>
+		</div>
+			
+	</div>
+	{% endraw %}
+{% endblock %}
+
+{% block footer %} {% include "_footer.html" %} {% endblock %}

@@ -1,0 +1,37 @@
+/*SPINNER TESTING*/
+@mixin styleSpinner($color1, $color2, $lineCount, $maxTime, $minTime) {
+	
+	$stepPercent: 1 / $lineCount / 2;
+	$colorSteps: 1 / $lineCount;
+	
+	@for $i from 1 through $lineCount{
+		$spacing: ($i - 1) * $stepPercent;
+		$timeStep: (($maxTime - $minTime) / $lineCount);
+		$thisTime: $maxTime / ($maxTime - ($timeStep * ($i - 1)));
+
+		#ring#{$i}{
+			left: percentage($spacing);
+			top: percentage($spacing);
+			width: percentage(1 - ($spacing * 2));
+			height: percentage(1 - ($spacing * 2));
+			border-top-color: colorBetweenColors($color1, $color2,  $colorSteps * ( $i - 1 ) );
+			animation: loading $thisTime + s linear infinite;	
+		}
+	}
+}
+	
+		
+
+/* Animation */
+@-webkit-keyframes loading {
+  to { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes loading {
+	to { -moz-transform: rotate(360deg); }
+}
+@-ms-keyframes loading {
+	to { -ms-transform: rotate(360deg); }
+}
+@keyframes loading {
+	to { transform: rotate(360deg); }
+}
